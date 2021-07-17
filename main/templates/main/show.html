@@ -1,0 +1,39 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <h1>AJAX TEST</h1>
+        <div id="container">
+
+        </div>
+        <button type="button" onclick="loadData()">데이터 불러오기</button>
+
+        <script>
+            function loadData() {
+                const xhttp = new XMLHttpRequest();
+                xhttp.onload = function() {
+                    let parsed_data = JSON.parse(this.responseText);
+                    if(parsed_data['status'] == 200) {
+                        let data_list = parsed_data['data'];
+                        let html = '';
+                        for(let i = 0; i < data_list.length; i++) {
+                            html += `
+                            <tr>
+                                <td>${data_list[i]['name']}</td>
+                                <td>${data_list[i]['age']}</td>
+                            </td>
+                            `
+                        }
+
+                        document.getElementById("container").innerHTML = `<table> ${html} </table>`;
+
+                    }
+                }
+                xhttp.open("GET", "api/profile", true);
+                xhttp.send();
+            }
+
+        </script>
+    </body>
+</html>

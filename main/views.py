@@ -67,3 +67,7 @@ def profile_detail(request, pk):
         result['status'] = 404
         result['msg'] = 'Unsupported method request'
         return JsonResponse(result)
+
+
+def show(request):
+    return render(request, 'main/show.html')
